@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+<h1>Version 0.1 </h1>
+<h1>CYPHER - Query</h1>
+<h2> {{  message }}</h2>
+
+<p>
+
+  // Creates Root - Level 0
+  CREATE (root:Root {name:'Snake Eye', type:'Web Application'})
+
+  // Creation of Nodes for Level 1
+  CREATE (config:Folder {name:'config', no_folder:1, no_file:2})
+  CREATE (instances:Folder {name:'instances', no_folder:0, no_file:2})
+  CREATE (snakeeyes:Folder {name:'snakeeyes', no_folder:1, no_file:2})
+  CREATE (env:File {name:'.env', type:'', code:''})
+  CREATE (docker_compose:File {name:'docker-compose', type:'.yml', code:''})
+  CREATE (dockerfile:File {name:'Dockerfile', type:'', code:''})
+  CREATE (requirements:File {name:'requirements', type:'.txt', code:''})
+
+  // Creation of Relations Between Level 0 & Level 1
+
+  CREATE (root)-[:CONTAINS {Level:0}]->(config)
+  CREATE (root)-[:CONTAINS {Level:0}]->(instances)
+  CREATE (root)-[:CONTAINS {Level:0}]->(snakeeyes)
+  CREATE (root)-[:CONTAINS {Level:0}]->(requirements)
+  CREATE (root)-[:CONTAINS {Level:0}]->(dockerfile)
+  CREATE (root)-[:CONTAINS {Level:0}]->(docker_compose)
+  CREATE (root)-[:CONTAINS {Level:0}]->(env)
+
+  // Creation of Nodes for Folder # 1
+  CREATE (pycache_config:Folder {name:'__pycache__', no_folder:0, no_file:2})
+  CREATE (init_config:File {name:'__init__', type:'py', code:''})
+  CREATE (settings_config:File {name:'settings', type:'py', code:''})
+
+  // Creation of Relations for Folder # 1 Level 1
+  CREATE (config)-[:CONTAINS {Level:0}]->(pycache_config)
+  CREATE (config)-[:CONTAINS {Level:0}]->(init_config)
+  CREATE (config)-[:CONTAINS {Level:0}]->(settings_config)
+
+
+  // Creation of Nodes for Folder # 2 Level 1
+  CREATE (init_inst:File {name:'__init__', type:'.py', code:''})
+  CREATE (settings_inst:File {name:'settings', type:'.py_production_example', code:''})
+
+  // Creation of Relations for Folder #2 Level 1
+  CREATE (instances)-[:CONTAINS {Level:0}]->(init_inst)
+  CREATE (instances)-[:CONTAINS {Level:0}]->(settings_inst)
+
+  // Creation of Nodes for Folder # 3 Level 1
+  CREATE (pycache_snake:Folder {name:'__pycache__', no_folder:0, no_file:2})
+  CREATE (init_snake:File {name:'__init__', type:'.py', code:''})
+  CREATE (app_snake:File {name:'app', type:'.py', code:''})
+
+  // Creation of Relations for Folder #3 Level 1
+  CREATE (snakeeyes)-[:CONTAINS {Level:1}]->(pycache_snake)
+  CREATE (snakeeyes)-[:CONTAINS {Level:1}]->(init_snake)
+  CREATE (snakeeyes)-[:CONTAINS {Level:1}]->(app_snake)
+
+  //Creation of Nodes for Folder # 1 Level 2
+  CREATE (init_pycache_config:File {name:'__init__', type:'.cpython-35.pyc', code:''})
+  CREATE (settings_pycache_config:File {name:'settings', type:'.cpython-35.pyc', code:''})
+
+  // Creation of Relations for Folder #1 Level 2
+  CREATE (pycache_config)-[:CONTAINS {Level:2}]->(init_pycache_config)
+  CREATE (pycache_config)-[:CONTAINS {Level:2}]->(settings_pycache_config)
+
+
+  //Creation of Nodes for Folder # 3 Level 2
+  CREATE (init_pycache_snake:File {name:'__init__', type:'.cpython-35.pyc', code:''})
+  CREATE (app_pycache_snake:File {name:'app', type:'.cpython-35.pyc', code:''})
+
+  // Creation of Relations for Folder # 3 Level 2
+  CREATE (pycache_snake)-[:CONTAINS {Level:2}]->(init_pycache_snake)
+  CREATE (pycache_snake)-[:CONTAINS {Level:2}]->(app_pycache_snake)
+
+
+</p>
+
+</body>
+</html>
